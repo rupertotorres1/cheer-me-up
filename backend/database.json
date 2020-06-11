@@ -1,0 +1,11 @@
+{
+  "dev": {
+    "driver": "pg",
+    "user": "ruperto",
+    "password": null,
+    "host": "localhost",
+    "database": "cheer-me-up",
+    "port": "5432"
+  },
+  "sql-file": true
+}

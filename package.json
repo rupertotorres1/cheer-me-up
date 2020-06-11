@@ -1,0 +1,17 @@
+{
+  "name": "cheer-me-up",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently — kill-others \"npm run backend-dev\" \"npm run frontend-dev\"",
+    "backend-dev": "cd backend && npm run dev",
+    "frontend-dev": "cd frontend && npm start"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
