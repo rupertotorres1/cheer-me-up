@@ -7,6 +7,7 @@ import {
   CREATE_ACHIEVEMENT_SUCCESS,
   DELETE_ACHIEVEMENT,
   DELETE_ACHIEVEMENT_SUCCESS,
+  PICK_NEXT_ACHIEVEMENT,
 } from './types';
 
 export const getAllAchievements = (): AchievementsActionTypes => {
@@ -37,4 +38,8 @@ export const deleteAchievementSuccess = (
   id: string
 ): AchievementsActionTypes => {
   return { type: DELETE_ACHIEVEMENT_SUCCESS, payload: id };
+};
+
+export const pickNextAchievement = (): AchievementsActionTypes => {
+  return { type: PICK_NEXT_ACHIEVEMENT };
 };

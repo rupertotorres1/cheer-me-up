@@ -5,6 +5,7 @@ import {
   createAchievement,
   getAllAchievements,
   deleteAchievement,
+  pickNextAchievement,
 } from '../store/achievements/actions';
 
 const App = () => {
@@ -14,8 +15,8 @@ const App = () => {
     dispatch(getAllAchievements());
   }, []);
 
-  const achievements = useSelector(
-    (state: RootState) => state.achievements.items,
+  const displayedAchievement = useSelector(
+    (state: RootState) => state.achievements.displayedAchievement,
     shallowEqual
   );
 
@@ -26,18 +27,34 @@ const App = () => {
     setNewAchievement(target.value);
   };
 
+  const handleAddAchievement = () => {
+    dispatch(createAchievement(newAchievement));
+    setNewAchievement('');
+  };
+
   return (
     <>
       <h1>Here's one of your achievements:</h1>
-      <ul>
-        {achievements.map((d) => (
-          <li key={d.id} onClick={() => dispatch(deleteAchievement(d.id))}>
-            {d.text}
-          </li>
-        ))}
-      </ul>
-      {/* <p> Made this website! </p> */}
-      <button style={{ display: 'block' }}>Show me another one</button>
+      <p
+        onClick={() =>
+          displayedAchievement
+            ? dispatch(deleteAchievement(displayedAchievement.id))
+            : undefined
+        }
+      >
+        {' '}
+        {displayedAchievement
+          ? displayedAchievement.text
+          : '*** Add more achievements below! ***'}{' '}
+      </p>
+      <button
+        style={{ display: 'block' }}
+        onClick={() =>
+          displayedAchievement ? dispatch(pickNextAchievement()) : undefined
+        }
+      >
+        Show me another one
+      </button>
       <br></br>
       <label htmlFor="newAchievement">New Achievement: </label>
       <input
@@ -45,9 +62,7 @@ const App = () => {
         value={newAchievement}
         onChange={handleNewAchievementInput}
       ></input>
-      <button onClick={() => dispatch(createAchievement(newAchievement))}>
-        Add
-      </button>
+      <button onClick={handleAddAchievement}>Add</button>
     </>
   );
 };

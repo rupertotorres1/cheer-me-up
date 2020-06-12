@@ -5,6 +5,7 @@ export interface Achievement {
 
 export interface AchievementsState {
   items: Achievement[];
+  displayedAchievement: Achievement | undefined;
 }
 
 export const GET_ALL_ACHIEVEMENTS = 'GET_ALL_ACHIEVEMENTS';
@@ -13,6 +14,7 @@ export const CREATE_ACHIEVEMENT = 'ADD_ACHIEVEMENT';
 export const CREATE_ACHIEVEMENT_SUCCESS = 'ADD_ACHIEVEMENT_SUCCESS';
 export const DELETE_ACHIEVEMENT = 'DELETE_ACHIEVEMENT';
 export const DELETE_ACHIEVEMENT_SUCCESS = 'DELETE_ACHIEVEMENT_SUCCESS';
+export const PICK_NEXT_ACHIEVEMENT = 'PICK_NEXT_ACHIEVEMENT';
 
 interface GetAllAchievementsAction {
   type: typeof GET_ALL_ACHIEVEMENTS;
@@ -43,10 +45,15 @@ interface DeleteAchievementSuccessAction {
   payload: string;
 }
 
+interface PickNextAchievementAction {
+  type: typeof PICK_NEXT_ACHIEVEMENT;
+}
+
 export type AchievementsActionTypes =
   | GetAllAchievementsAction
   | GetAllAchievementsSuccessAction
   | CreateAchievementAction
   | CreateAchievementSuccessAction
   | DeleteAchievementAction
-  | DeleteAchievementSuccessAction;
+  | DeleteAchievementSuccessAction
+  | PickNextAchievementAction;

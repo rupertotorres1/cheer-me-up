@@ -3,7 +3,7 @@ import { apiGet, apiPost, apiDelete } from '../../apiHelper';
 import {
   getAllAchievementsSuccess,
   createAchievementSuccess,
-  deleteAchievementSuccess,
+  pickNextAchievement,
 } from './actions';
 import {
   GET_ALL_ACHIEVEMENTS,
@@ -19,6 +19,10 @@ function* getAll() {
   const achievements: Achievement[] = yield res.json();
 
   yield put(getAllAchievementsSuccess(achievements));
+
+  // should this be it's own saga (watching getAllAchievementsSuccess)?
+  // worried about race condition (trying to pick the achievement before the achievements are loaded into state)
+  yield put(pickNextAchievement());
 }
 
 function* create(action: CreateAchievementAction) {
@@ -34,7 +38,7 @@ function* remove(action: DeleteAchievementAction) {
   const id = action.payload;
   yield call(apiDelete, `achievements/${id}`);
 
-  yield put(deleteAchievementSuccess(id));
+  yield put(pickNextAchievement());
 }
 
 export default function* rootSaga() {
