@@ -2,7 +2,7 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
   user: 'ruperto',
-  password: '', // TODO: should I just remove this field?
+  password: '',
   host: 'localhost',
   database: 'cheer-me-up',
   port: 5432,

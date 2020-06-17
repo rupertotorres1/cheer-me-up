@@ -16,7 +16,7 @@ import {
 
 function* getAll() {
   const res = yield call(apiGet, 'achievements');
-  const achievements: Achievement[] = yield res.json();
+  const { achievements }: { achievements: Achievement[] } = yield res.json();
 
   yield put(getAllAchievementsSuccess(achievements));
 

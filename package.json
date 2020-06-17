@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "concurrently — kill-others \"npm run backend-dev\" \"npm run frontend-dev\"",
     "backend-dev": "cd backend && npm run dev",
-    "frontend-dev": "cd frontend && npm start"
+    "frontend-dev": "cd frontend && npm start",
+    "build-frontend": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm start"
   },
   "author": "",
   "license": "ISC",

@@ -3,8 +3,12 @@ const API_URL =
     ? 'production server goes here'
     : 'http://localhost:5000/api/v1/';
 
+const fetchApi = (route: string, options: any) => {
+  return fetch(API_URL + route, { ...options, credentials: 'include' });
+};
+
 export const apiPost = (route: string, body: any) => {
-  return fetch(API_URL + route, {
+  return fetchApi(route, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: new Headers({
@@ -14,7 +18,7 @@ export const apiPost = (route: string, body: any) => {
 };
 
 export const apiPut = (route: string, body: any) => {
-  return fetch(API_URL + route, {
+  return fetchApi(route, {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: new Headers({
@@ -24,9 +28,9 @@ export const apiPut = (route: string, body: any) => {
 };
 
 export const apiGet = (route: string) => {
-  return fetch(API_URL + route, { method: 'GET' });
+  return fetchApi(route, { method: 'GET' });
 };
 
 export const apiDelete = (route: string) => {
-  return fetch(API_URL + route, { method: 'DELETE' });
+  return fetchApi(route, { method: 'DELETE' });
 };
