@@ -16,7 +16,8 @@ import {
 
 function* getAll() {
   const res = yield call(apiGet, 'achievements');
-  const { achievements }: { achievements: Achievement[] } = yield res.json();
+  // TODO: this has extra 'user_id' field;
+  const { achievements } = yield res.json();
 
   yield put(getAllAchievementsSuccess(achievements));
 
@@ -28,9 +29,9 @@ function* getAll() {
 function* create(action: CreateAchievementAction) {
   const text = action.payload;
   const res = yield call(apiPost, 'achievements', { text });
-  const { id } = yield res.json();
+  const { achievementId } = yield res.json();
 
-  const achievement: Achievement = { id, text };
+  const achievement: Achievement = { id: achievementId, text };
   yield put(createAchievementSuccess(achievement));
 }
 
