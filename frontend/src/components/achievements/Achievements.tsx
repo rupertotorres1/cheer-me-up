@@ -36,12 +36,19 @@ const Achievements = () => {
   };
 
   return (
-    <Box sx={{ fontSize: [2, 3, 4] }}>
+    // TODO: Box's widths are hardcoded, there must be a better way
+    <Box
+      sx={{
+        fontSize: [2, 3, 4],
+        width: [339.08, 452.09, 678.14],
+        minWidth: 339.08,
+      }}
+    >
       <Heading mb="4" sx={{ fontSize: [4, 5, 6] }}>
         Here's one of your achievements:
       </Heading>
       <Text
-        sx={{ flex: 1, textAlign: 'center', mb: '2' }}
+        sx={{ textAlign: 'center', mb: '2' }}
         onClick={() =>
           displayedAchievement
             ? dispatch(deleteAchievement(displayedAchievement.id))
