@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import {
-  Box,
-  Button,
+  Button as MaterialButton,
   IconButton,
   Typography,
   TextField,
-  Container,
+  Container as MaterialContainer,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { styled } from '@material-ui/core/styles';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import {
@@ -16,6 +16,25 @@ import {
   deleteAchievement,
   pickNextAchievement,
 } from '../../store/achievements/actions';
+import theme from '../../theme';
+
+const Container = styled(MaterialContainer)({
+  textAlign: 'center',
+  maxWidth: '927px',
+});
+
+const Heading = styled(Typography)({
+  marginBottom: theme.spacing(4),
+});
+
+const Body = styled(Typography)({
+  marginBottom: theme.spacing(1),
+});
+
+const Button = styled(MaterialButton)({
+  display: 'block',
+  margin: theme.spacing(0, 'auto', 4, 'auto'),
+});
 
 const AddIconButton = () => (
   <IconButton type="submit">
@@ -49,32 +68,28 @@ const Achievements = () => {
     setNewAchievement('');
   };
 
+  const handleDeleteAchievement = () => {
+    if (displayedAchievement) {
+      dispatch(deleteAchievement(displayedAchievement.id));
+    }
+  };
+
+  const handleShowNext = () => {
+    if (displayedAchievement) {
+      dispatch(pickNextAchievement());
+    }
+  };
+
   return (
     // TODO: is this the right way to do responsive width?
-    <Container style={{ textAlign: 'center', maxWidth: '927px' }}>
-      <Typography style={{ marginBottom: '32px' }} variant="h2">
-        Here's one of your achievements:
-      </Typography>
-      <Typography
-        style={{ marginBottom: '8px' }}
-        variant="body1"
-        onClick={() =>
-          displayedAchievement
-            ? dispatch(deleteAchievement(displayedAchievement.id))
-            : undefined
-        }
-      >
+    <Container>
+      <Heading variant="h2">Here's one of your achievements:</Heading>
+      <Body variant="body1" onClick={handleDeleteAchievement}>
         {displayedAchievement
           ? displayedAchievement.text
           : '*** Add more achievements below! ***'}
-      </Typography>
-      <Button
-        style={{ display: 'block', margin: '0 auto 32px auto' }}
-        variant="contained"
-        onClick={() =>
-          displayedAchievement ? dispatch(pickNextAchievement()) : undefined
-        }
-      >
+      </Body>
+      <Button variant="contained" onClick={handleShowNext}>
         Show me another one
       </Button>
       <form onSubmit={handleAddAchievement}>
