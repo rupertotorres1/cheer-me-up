@@ -1,6 +1,13 @@
-/** @jsx jsx */
-import { jsx, Box, Heading, Text, Label, Input, Button, Flex } from 'theme-ui';
-import { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  TextField,
+  Container,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import {
@@ -9,6 +16,12 @@ import {
   deleteAchievement,
   pickNextAchievement,
 } from '../../store/achievements/actions';
+
+const AddIconButton = () => (
+  <IconButton type="submit">
+    <AddIcon />
+  </IconButton>
+);
 
 const Achievements = () => {
   const dispatch = useDispatch();
@@ -26,6 +39,7 @@ const Achievements = () => {
   const [newAchievement, setNewAchievement] = useState('');
 
   const handleNewAchievementInput = (e: ChangeEvent) => {
+    e.preventDefault();
     const target = e.target as HTMLTextAreaElement;
     setNewAchievement(target.value);
   };
@@ -36,19 +50,14 @@ const Achievements = () => {
   };
 
   return (
-    // TODO: Box's widths are hardcoded, there must be a better way
-    <Box
-      sx={{
-        fontSize: [2, 3, 4],
-        width: [339.08, 452.09, 678.14],
-        minWidth: 339.08,
-      }}
-    >
-      <Heading mb="4" sx={{ fontSize: [4, 5, 6] }}>
+    // TODO: is this the right way to do responsive width?
+    <Container style={{ textAlign: 'center', maxWidth: '927px' }}>
+      <Typography style={{ marginBottom: '32px' }} variant="h2">
         Here's one of your achievements:
-      </Heading>
-      <Text
-        sx={{ textAlign: 'center', mb: '2' }}
+      </Typography>
+      <Typography
+        style={{ marginBottom: '8px' }}
+        variant="body1"
         onClick={() =>
           displayedAchievement
             ? dispatch(deleteAchievement(displayedAchievement.id))
@@ -58,28 +67,29 @@ const Achievements = () => {
         {displayedAchievement
           ? displayedAchievement.text
           : '*** Add more achievements below! ***'}
-      </Text>
+      </Typography>
       <Button
-        sx={{ display: 'block', mx: 'auto', mb: '6', fontSize: [0, 1, 2] }}
+        style={{ display: 'block', margin: '0 auto 32px auto' }}
+        variant="contained"
         onClick={() =>
           displayedAchievement ? dispatch(pickNextAchievement()) : undefined
         }
       >
         Show me another one
       </Button>
-      <Label htmlFor="newAchievement">New Achievement: </Label>
-      <Flex>
-        <Input
-          sx={{ fontSize: [1, 2, 3] }}
-          name="newAchievement"
+      <form onSubmit={handleAddAchievement}>
+        {/* TODO: weird label positioning */}
+        <TextField
+          label="New Achievement"
           value={newAchievement}
           onChange={handleNewAchievementInput}
-        ></Input>
-        <Button sx={{ fontSize: [0, 1, 2] }} onClick={handleAddAchievement}>
-          Add
-        </Button>
-      </Flex>
-    </Box>
+          InputProps={{
+            endAdornment: <AddIconButton />,
+          }}
+          fullWidth
+        />
+      </form>
+    </Container>
   );
 };
 

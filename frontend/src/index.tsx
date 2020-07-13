@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'theme-ui';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import store from './store';
 import App from './components/App';

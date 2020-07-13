@@ -1,13 +1,8 @@
-/** @jsx jsx */
-import { jsx, Flex } from 'theme-ui';
+import React from 'react';
 import Achievements from './achievements/Achievements';
 
 const App = () => {
-  return (
-    <Flex sx={{ justifyContent: 'center' }}>
-      <Achievements></Achievements>
-    </Flex>
-  );
+  return <Achievements />;
 };
 
 export default App;
