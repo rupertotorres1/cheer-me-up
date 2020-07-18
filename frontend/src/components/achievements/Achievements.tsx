@@ -5,6 +5,7 @@ import {
   Typography,
   TextField,
   Container as MaterialContainer,
+  InputAdornment,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { styled } from '@material-ui/core/styles';
@@ -93,13 +94,16 @@ const Achievements = () => {
         Show me another one
       </Button>
       <form onSubmit={handleAddAchievement}>
-        {/* TODO: weird label positioning */}
         <TextField
           label="New Achievement"
           value={newAchievement}
           onChange={handleNewAchievementInput}
           InputProps={{
-            endAdornment: <AddIconButton />,
+            endAdornment: (
+              <InputAdornment position="end">
+                <AddIconButton />
+              </InputAdornment>
+            ),
           }}
           fullWidth
         />
